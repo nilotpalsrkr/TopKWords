@@ -1,9 +1,10 @@
 package com.nilotpal.practice.TopKWords.controllers;
 
-
-import com.nilotpal.practice.TopKWords.TopKResponse;
+import com.nilotpal.practice.TopKWords.models.TopKResponse;
 import com.nilotpal.practice.TopKWords.services.TopKWordsApi;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ import java.util.List;
 @RestController
 public class TopKWordsController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TopKWordsController.class);
+
     @Autowired
     private TopKWordsApi topKWordsApi;
 
@@ -35,9 +38,9 @@ public class TopKWordsController {
             System.out.println(topKWords);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<TopKResponse>(new TopKResponse(k, topKWords, "Failed"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new TopKResponse(k, topKWords, "Failed"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<TopKResponse>(new TopKResponse(k, topKWords, "Success"), HttpStatus.OK);
+        return new ResponseEntity<>(new TopKResponse(k, topKWords, "Success"), HttpStatus.OK);
     }
 
 }

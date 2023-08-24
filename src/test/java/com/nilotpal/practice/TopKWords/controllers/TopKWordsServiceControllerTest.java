@@ -1,5 +1,6 @@
 package com.nilotpal.practice.TopKWords.controllers;
 
+import com.nilotpal.practice.TopKWords.services.FileStoreApi;
 import com.nilotpal.practice.TopKWords.services.TopKWordsApi;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,9 @@ public class TopKWordsServiceControllerTest {
 
     @MockBean
     private TopKWordsApi topKWordsApi;
+
+    @MockBean
+    private FileStoreApi fileStoreApi;
 
     @Test
     public void testUploadFile() throws Exception {

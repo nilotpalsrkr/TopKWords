@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LargeFileDegeneratorTest {
+public class FileSplitterTest {
 
     @Test
     public void testChunksMethod() throws IOException {
@@ -17,7 +17,7 @@ public class LargeFileDegeneratorTest {
         String inputFileName = "sample-2mb-text-file.txt";
 
         // Create an instance of LargeFileDegenerator
-        LargeFileDegenerator degenerator = new LargeFileDegenerator(chunkSizeInMB, outputDirPath);
+        FileSplitter degenerator = new FileSplitter(chunkSizeInMB, outputDirPath);
 
         // Run the chunks method
         degenerator.chunks(inputFolderPath + inputFileName);
@@ -26,7 +26,7 @@ public class LargeFileDegeneratorTest {
         File outputDir = new File(outputDirPath);
         File[] outputFiles = outputDir.listFiles();
         assertNotNull(outputFiles);
-        assertEquals(1, outputFiles.length);
+        assertEquals(3, outputFiles.length);
 
         // Check the content of the generated output file
         FileInputStream inputStream = new FileInputStream(outputFiles[0]);

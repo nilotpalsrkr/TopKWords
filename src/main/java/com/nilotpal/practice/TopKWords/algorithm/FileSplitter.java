@@ -6,14 +6,20 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-public class LargeFileDegenerator {
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-    private static final Logger logger = LoggerFactory.getLogger(LargeFileDegenerator.class);
+@Service
+public class FileSplitter {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileSplitter.class);
 
     private int chunkSizeInBytes;
+
     private String outputDirPath;
 
-    public LargeFileDegenerator(int chunkSizeInBytes, String outputDirPath) {
+    public FileSplitter(@Value("${top-k-words.file.chunk-size}") int chunkSizeInBytes, @Value("${top-k-words.file.outputDir}")String outputDirPath) {
         this.chunkSizeInBytes = chunkSizeInBytes;
         this.outputDirPath = outputDirPath;
     }

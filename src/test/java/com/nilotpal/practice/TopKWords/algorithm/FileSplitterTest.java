@@ -34,6 +34,5 @@ public class FileSplitterTest {
         inputStream.read(buffer);
         inputStream.close();
 
-        // You can add additional assertions here to compare the output with expected content
     }
 }

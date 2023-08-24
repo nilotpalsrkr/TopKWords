@@ -2,6 +2,7 @@ package com.nilotpal.practice.TopKWords.services;
 
 
 import com.nilotpal.practice.TopKWords.algorithm.TopKFrequentWords;
+import com.nilotpal.practice.TopKWords.models.WordCount;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,11 +28,9 @@ public class TopKWordsServiceTest {
 
         List<String> words = Arrays.asList("apple", "banana", "apple", "banana", "cherry", "banana", "apple", "dog");
         int k = 2;
-        List<String> expected = Arrays.asList("banana", "apple");
+        List<WordCount> expected = Arrays.asList(new WordCount("banana", 3), new WordCount("apple", 3));
         when(topKFrequentWords.topKFrequent(words, k)).thenReturn(expected);
-        List<String> result = topKFrequentWords.topKFrequent(words, k);
-        Collections.sort(result);
-        Collections.sort(expected);
+        List<WordCount> result = topKFrequentWords.topKFrequent(words, k);
         assertEquals(expected, result);
     }
 
@@ -47,10 +46,10 @@ public class TopKWordsServiceTest {
                 "apple", "banana", "apple", "banana", "cherry", "banana", "apple", "dog","apple", "banana", "apple", "banana", "cherry", "banana", "apple", "dog","apple", "banana", "apple", "banana", "cherry", "banana", "apple", "dog","apple", "banana", "apple", "banana", "cherry", "banana", "apple", "dog");
         int k = 2;
         List<String> expected = Arrays.asList("banana", "apple");
-        when(topKFrequentWords.topKFrequent(words, k)).thenReturn(expected);
-        List<String> result = topKFrequentWords.topKFrequent(words, k);
-        Collections.sort(result);
-        Collections.sort(expected);
+        //when(topKFrequentWords.topKFrequent(words, k)).thenReturn(expected);
+        List<WordCount> result = topKFrequentWords.topKFrequent(words, k);
+        //Collections.sort(result);
+        //Collections.sort(expected);
         assertEquals(expected, result);
     }
 }

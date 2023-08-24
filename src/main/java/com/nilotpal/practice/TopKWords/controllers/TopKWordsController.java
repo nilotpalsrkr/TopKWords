@@ -1,6 +1,7 @@
 package com.nilotpal.practice.TopKWords.controllers;
 
 import com.nilotpal.practice.TopKWords.models.TopKResponse;
+import com.nilotpal.practice.TopKWords.models.WordCount;
 import com.nilotpal.practice.TopKWords.services.FileService;
 import com.nilotpal.practice.TopKWords.services.FileStoreApi;
 import com.nilotpal.practice.TopKWords.services.TopKWordsApi;
@@ -18,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,10 +37,10 @@ public class TopKWordsController {
     @PostMapping("/top-k-words")
     public ResponseEntity<TopKResponse> uploadFile(
             @RequestPart("file") MultipartFile file, @RequestParam int k) {
-        List<String> topKWords = null;
+        Map<String, Integer> topKWords = null;
         try {
             List<String> fileChunkPaths = fileStoreApi.store(file);
-            List<String> r = fileChunkPaths.parallelStream().map(chunkFilePath -> {
+            List<WordCount> r = fileChunkPaths.parallelStream().map(chunkFilePath -> {
                 Stream<String> words = null;
                 try {
                     words = fileStoreApi.readWordsFromFile(chunkFilePath);
@@ -50,12 +48,12 @@ public class TopKWordsController {
                     e.printStackTrace();
                 }
                 return words;
-            }).map(stream -> topKWordsApi.topKFrequent(stream.collect(Collectors.toList()), k)).flatMap(x -> x.stream())
+            }).map(s -> topKWordsApi.topKFrequent(s , k)).flatMap(x -> x.stream())
                     .collect(Collectors.toList());
-            Collections.sort(r);
-            //topKWords = topKWordsApi.topKFrequent(lines, k);
-            topKWords = r.stream().limit(k).collect(Collectors.toList());
-            System.out.println();
+            topKWords = r.stream()
+                    .collect(Collectors.toMap(WordCount::word, WordCount::count, Integer::sum));
+            logger.info(String.valueOf(topKWords));
+
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>(new TopKResponse(k, topKWords, "Failed"), HttpStatus.INTERNAL_SERVER_ERROR);

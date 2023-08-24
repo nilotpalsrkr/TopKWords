@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,11 +25,12 @@ public class FileService implements FileStoreApi, FileSplitterApi{
     @Autowired
     private FileSplitter fileSplitter;
 
+    @Value("${top-k-words.file.outputDir}")
     private String outputDirPath;
 
     @Override
     public List<String> store(MultipartFile file) throws IOException {
-        File multipartFile = new File(outputDirPath + file.getName());
+        File multipartFile = new File(outputDirPath + File.pathSeparator + file.getOriginalFilename());
         if (!multipartFile.exists()) {
             FileUtils.writeByteArrayToFile(multipartFile, file.getBytes());
         }
@@ -48,12 +50,12 @@ public class FileService implements FileStoreApi, FileSplitterApi{
         Path path = Path.of(filePath);
 
         Stream<String> words;
-        try (var lines = Files.lines(path)) {
+        Stream<String> lines = Files.lines(path);
             words = lines
                     .flatMap(line -> List.of(line.split("\\s+")).stream()) // Split lines into words
                     .filter(word -> !word.isEmpty()) // Remove empty words
                     ;
-        }
+
         return words;
     }
 }

@@ -1,4 +1,6 @@
 package com.nilotpal.practice.TopKWords.models;
 
-public record WordCount(String word, int count) {
+import java.io.Serializable;
+
+public record WordCount(String word, int count) implements Serializable {
 }

@@ -45,7 +45,7 @@ public class TopKWordsServiceControllerTest {
                 .file(file)
                 .param("k", "2")
                 )
-                .andExpect(MockMvcResultMatchers.jsonPath("$.topWords").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.topWords").isMap())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("Success"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 

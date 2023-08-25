@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "9851377c-4ffe-4643-9cdd-bdfb9d2005d9",
+		"name": "TopKWords",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2369986"
+	},
+	"item": [
+		{
+			"name": "post top k words",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/nilotpalsarkar/Documents/Workspaces/TopKWords/src/test/resources/short-file.text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/top-k-words?k=7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"top-k-words"
+					],
+					"query": [
+						{
+							"key": "k",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

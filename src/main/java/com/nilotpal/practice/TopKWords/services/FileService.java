@@ -33,6 +33,7 @@ public class FileService implements FileStoreApi, FileSplitterApi{
         File multipartFile = new File(outputDirPath + File.pathSeparator + file.getOriginalFilename());
         if (!multipartFile.exists()) {
             FileUtils.writeByteArrayToFile(multipartFile, file.getBytes());
+            FileUtils.deleteQuietly(multipartFile);
         }
         return chunks(multipartFile.getAbsolutePath());
     }

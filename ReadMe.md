@@ -40,6 +40,7 @@
    
 6. Start the application
 7. Test the application -
+   For Basic authentication, username - admin, password - admin 
    ** Postman **
    Import the postman json, placed in the repository
 ```

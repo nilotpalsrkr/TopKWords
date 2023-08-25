@@ -1,12 +1,12 @@
 # Top K Words
 
 ## Tech Stack and Illustration
-- Java 17 (Used records and api response models)
+- Java 17 (Used records in api response models)
 - Springboot 3.0
 - maven
 - Top K words algorithm using heap (Priority Queue)
 - redis cache - The api response is cached. 
-- Docker for spawning the redis cluster and application
+- Docker for spawning the redis cluster.
 - Spring Security with InMemory user to show how an authenticated user works. (In production the user details are present in DB with encrypted or hashed password)
 - Junit Test cases, Mockmvc and Integration tests using SpringBootTests
 

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -28,6 +27,14 @@ public class FileService implements FileStoreApi, FileSplitterApi{
     @Value("${top-k-words.file.outputDir}")
     private String outputDirPath;
 
+    /**
+     * Overrides the store method of a file storage service. Stores the uploaded MultipartFile
+     * in the specified output directory and returns a list of chunks created from the stored file.
+     *
+     * @param file The MultipartFile to be stored
+     * @return A list of paths to chunks created from the stored file
+     * @throws IOException If an I/O error occurs while storing the file
+     */
     @Override
     public List<String> store(MultipartFile file) throws IOException {
         File outputDirFile = new File(outputDirPath);
@@ -43,6 +50,12 @@ public class FileService implements FileStoreApi, FileSplitterApi{
         return chunks(multipartFile.getAbsolutePath());
     }
 
+    /**
+     * Overrides the 'chunks' method to provide a list of paths to file chunks created from the given file path.
+     *
+     * @param filePath The path of the file to be split into chunks
+     * @return A list of paths to file chunks
+     */
     @Override
     public List<String> chunks(String filePath) {
         if (!filePath.isEmpty()) {
@@ -50,6 +63,14 @@ public class FileService implements FileStoreApi, FileSplitterApi{
         }
         return null;
     }
+
+    /**
+     * Overrides the 'readWordsFromFile' method to read words from the given file path and return them as a Stream.
+     *
+     * @param filePath The path of the file to read words from
+     * @return A Stream of non-empty words read from the file
+     * @throws IOException If an I/O error occurs while reading the file
+     */
 
     @Override
     public Stream<String> readWordsFromFile(String filePath) throws IOException {

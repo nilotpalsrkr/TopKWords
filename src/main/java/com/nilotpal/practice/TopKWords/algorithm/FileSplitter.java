@@ -7,7 +7,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +21,12 @@ public class FileSplitter {
     public FileSplitter(@Value("${top-k-words.file.chunk-size}") int chunkSizeInBytes, @Value("${top-k-words.file.outputDir}")String outputDirPath) {
         this.chunkSizeInBytes = chunkSizeInBytes;
         this.outputDirPath = outputDirPath;
+        File outputDirFile = new File(outputDirPath);
+        if (!outputDirFile.exists()) {
+            if (outputDirFile.mkdirs()) {
+                logger.info("Output directory created - " + outputDirPath);
+            }
+        }
     }
 
     /**

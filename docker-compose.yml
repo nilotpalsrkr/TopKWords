@@ -8,17 +8,5 @@ services:
     volumes:
       - redis-data:/data
 
-  #java-app:
-   # build:
-    #  context: ./path/to/your/java/application  # Replace with your application's path
-     # dockerfile: Dockerfile  # Replace with your Dockerfile name if applicable
-    #ports:
-     # - "8080:8080"
-    #depends_on:
-     # - redis
-    #environment:
-     # SPRING_REDIS_HOST: redis  # Use the service name defined above as the hostname
-      #SPRING_REDIS_PORT: 6379
-
 volumes:
   redis-data:

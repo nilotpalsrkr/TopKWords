@@ -20,7 +20,7 @@ public class TopKFrequentWords {
         return topWords;
     }
 
-    private List<WordCount> getTopWords(int k, Map<String, Integer> wordMap) {
+    public List<WordCount> getTopWords(int k, Map<String, Integer> wordMap) {
         PriorityQueue<String> heap = new PriorityQueue<>(
                 (w1, w2) -> wordMap.get(w1).equals(wordMap.get(w2)) ? w2.compareTo(w1) : wordMap.get(w1) - wordMap.get(w2));
 
@@ -32,7 +32,6 @@ public class TopKFrequentWords {
 
         List<WordCount> topWords = new ArrayList<>();
         while (!heap.isEmpty()) {
-            //res.add(heap.poll());
             String word = heap.poll();
             topWords.add(new WordCount(word, wordMap.get(word)));
         }

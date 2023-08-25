@@ -5,9 +5,10 @@
 - Springboot 3.0
 - maven
 - Top K words algorithm using heap (Priority Queue)
-- redis cache
-- Docker for spawning the redis cluster
-
+- redis cache - The api response is cached. 
+- Docker for spawning the redis cluster and application
+- Spring Security with InMemory user to show how an authenticated user works. (In production the user details are present in DB with encrypted or hashed password)
+- Junit Test cases, Mockmvc and Integration tests using SpringBootTests
 
 ## Start the application:
 ### Method - 1:  Download code from github, build the project, start the project with single docker-compose
@@ -30,10 +31,17 @@
 ```bash
   docker-compose up -d # This step is required for caching the api response. This would run the Redis cluster.
 ```
-5. Test the application -
-   ** Postman **
 
-Import the postman json, placed in the repository
+5. Set the environment variables:
+   ```
+   FILE_PERSISTENT_LOCATION=<A Local directory where the chunks of file get created> 
+   CHUNK_SIZE=1
+   ```
+   
+6. Start the application
+7. Test the application -
+   ** Postman **
+   Import the postman json, placed in the repository
 ```
 src/resources/postman # The file to be tested would require to be updated in the postman collection
 Two sample files are also located in test/resources directory.
@@ -49,3 +57,7 @@ Steps to push the image to docker public repo -
 ```bash
 docker push nilotpals92/top-k-words:1.0
 ```
+
+
+Output Screens:
+![Alt Text](documents/postman-output.png)

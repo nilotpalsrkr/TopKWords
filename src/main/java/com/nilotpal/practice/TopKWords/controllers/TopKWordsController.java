@@ -35,6 +35,7 @@ public class TopKWordsController {
     public ResponseEntity<TopKResponse> uploadFile(
             @RequestPart("file") MultipartFile file, @RequestParam int k) {
         Map<String, Integer> topKWords = null;
+        List<WordCount> res = new ArrayList<>();
         try {
             /**
              * First the file is persisted in server, and divided into chunks. After the chunks are created this file is
@@ -63,24 +64,20 @@ public class TopKWordsController {
              */
             topKWords = topWordCountsFromChunks.stream()
                     .collect(Collectors.toMap(WordCount::word, WordCount::count, Integer::sum));
-            /*topWordCountsFromChunks.stream()
-                    .collect(Collectors.toMap(
-                            WordCount::word,
-                            WordCount::count,
-                            Integer::sum,
-                            (u, v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); },
-                            TreeMap::new,  // Use TreeMap as the map supplier
-                            Comparator.<String, Integer>comparing(topWordCountsFromChunks::indexOf)
-                                    .reversed()  // Sort by count in decreasing order
-                                    .thenComparing(Comparator.naturalOrder())  // Sort by word in case of count ties
-                    ));*/
 
-            logger.info(String.valueOf(topKWords));
+            /**
+             * Once again the the top K words needs to be evaluated from the results of the separate chunks.
+             *
+             */
+            res = topKWordsApi.getTopWords(k, topKWords);
+
+
+            logger.info(String.valueOf(res));
 
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new TopKResponse(k, topKWords, "Failed"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new TopKResponse(k, res, "Failed"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(new TopKResponse(k, topKWords, "Success"), HttpStatus.OK);
+        return new ResponseEntity<>(new TopKResponse(k, res, "Success"), HttpStatus.OK);
     }
 }

@@ -24,4 +24,9 @@ public class TopKWordsService implements TopKWordsApi{
         List<WordCount> topWords = topKFrequentWords.topKFrequent(words.collect(Collectors.toList()), k);
         return topWords;
     }
+
+    @Override
+    public List<WordCount> getTopWords(int k, Map<String, Integer> wordMap) {
+        return topKFrequentWords.getTopWords(k, wordMap);
+    }
 }

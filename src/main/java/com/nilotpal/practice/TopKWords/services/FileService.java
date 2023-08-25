@@ -30,10 +30,15 @@ public class FileService implements FileStoreApi, FileSplitterApi{
 
     @Override
     public List<String> store(MultipartFile file) throws IOException {
-        File multipartFile = new File(outputDirPath + File.pathSeparator + file.getOriginalFilename());
+        File outputDirFile = new File(outputDirPath);
+        if (!outputDirFile.exists()) {
+            if (outputDirFile.mkdirs()) {
+                logger.info("Output directory created - " + outputDirPath);
+            }
+        }
+        File multipartFile = new File(outputDirPath + File.separator + file.getOriginalFilename());
         if (!multipartFile.exists()) {
             FileUtils.writeByteArrayToFile(multipartFile, file.getBytes());
-            FileUtils.deleteQuietly(multipartFile);
         }
         return chunks(multipartFile.getAbsolutePath());
     }

@@ -43,6 +43,10 @@ public class TopKFrequentWords {
      * Given a map of word frequencies, this method returns a list of the top K most frequent words.
      * It uses a priority queue (heap) to efficiently find and maintain the top K frequent words.
      *
+     * The below method is made public.Its usage is also for merging of top K words from multiple chunks.
+     * Chunk processing would return Top frequent words map and would re-use this method to finalize the
+     * top-k words.
+     *
      * @param k        Number of top frequent words to return
      * @param wordMap  Map containing word frequencies
      * @return List of WordCount objects representing the top K frequent words along with their counts

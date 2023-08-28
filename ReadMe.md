@@ -4,6 +4,7 @@
 The Top k process calculates the top frequent words using heap data structure. It can process huge files. It breaks the files in small chunks of 
 1mb (configurable) and processes each chunks in parralel. 
 After processing in chunks it then merges the result of each chunk and prepares the final result for top k words for the file.
+
 ![Alt Text](documents/top-k-words-process.png)
 ## Tech Stack and Illustration
 - Java 17 (Used records in api response models)

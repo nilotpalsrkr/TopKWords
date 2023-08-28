@@ -9,6 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class responsible for splitting a large file into smaller chunks and managing their creation on disk.
+ *
+ * This class provides functionality to split a large input file into smaller chunks of specified size.
+ * Chunks are created on disk and represented as separate files, enabling efficient processing of large files.
+ *
+ * The chunk size and output directory path are configured during the class's initialization using Spring's
+ * `@Value` annotations, making the class adaptable to different configurations.
+ *
+ * @see FileSplitter#chunks(String) for the method that performs the file splitting and chunk creation.
+ */
 @Service
 public class FileSplitter {
 

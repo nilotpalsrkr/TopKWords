@@ -7,6 +7,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * Component class responsible for computing the top K most frequent words from a given list of words or a word frequency map.
+ *
+ * This component provides methods to calculate the top K most frequent words based on their occurrence in a list of words or
+ * a word frequency map. It employs a priority queue (heap) to efficiently identify and maintain the top K frequent words.
+ * The class is designed to encapsulate the logic for extracting and processing frequent words, making it a reusable and modular
+ * component in applications involving word frequency analysis.
+ *
+ * @see TopKFrequentWords#topKFrequent(List, int) for the method to compute top K frequent words from a list of words.
+ * @see TopKFrequentWords#getTopWords(int, Map) for the method to compute top K frequent words from a word frequency map.
+ */
 @Component
 public class TopKFrequentWords {
     private static final Logger logger = LoggerFactory.getLogger(TopKFrequentWords.class);

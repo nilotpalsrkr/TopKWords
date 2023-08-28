@@ -17,11 +17,15 @@ After processing in chunks it then merges the result of each chunk and prepares 
 
 ## Api Specification
 The application can be accessed via Rest Api
-#### POST /top-k-words
-###### Request Parameters
+```
+POST /top-k-words
+
+Request Parameters
    k int # Specifies the number of frequent words from the file 
-######Request Body
+
+Request Body
    file multipart file # A Text file of size upto 10MB.
+   ```
 ## Start the application:
 ### Method - 1:  Download code from github, build the project, start the project with single docker-compose
 1. Git clone
